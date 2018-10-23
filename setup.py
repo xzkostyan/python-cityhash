@@ -5,6 +5,8 @@ __jabber__  = "alone.amper@gmail.com"
 __twitter__ = "amper"
 __url__     = "http://amper.github.com/cityhash"
 
+import platform
+
 from setuptools import setup
 from setuptools.extension import Extension
 from setuptools.dist import Distribution
@@ -27,12 +29,16 @@ class BinaryDistribution(Distribution):
         return False
 
 
-CXXFLAGS = """
+CXXFLAGS = []
+
+if platform.system().lower() == "linux":
+    CXXFLAGS = """
 -O3
 -msse4.2
 -Wno-unused-value
 -Wno-unused-function
 """.split()
+
 
 INCLUDE_DIRS = ['include']
 
